@@ -1,0 +1,22 @@
+
+version: "3"
+
+services:
+  llamafile:
+    container_name: llamafile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080/tcp"
+    volumes:
+      - ./models/llava-v1.5-7b-q4.llamafile:/llamafile:ro
+      - ./models:/models:ro
+    command: ['/bin/sh', '-c', '/busybox --install /bin && /bin/sh /llamafile --nobrowser --host 0.0.0.0 --port 8080']
+    healthcheck:
+      test: ['/bin/sh', '-c', '/bin/wget http://127.0.0.1:8080/health -T 10 -q -O - | egrep -q status...ok']
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+

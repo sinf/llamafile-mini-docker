@@ -13,7 +13,13 @@ podman run --rm -it \
 -v "$llamafile":/llamafile:ro \
 -v ./models:/models:ro \
 localhost/nothing \
-/bin/sh -c '/busybox --install /bin && /bin/sh /llamafile'
+/bin/sh -c '/busybox --install /bin && /bin/sh /llamafile --nobrowser --host 0.0.0.0 --port 8080'
 
 #-v "$model":/model.gguf:ro \
+
+# test if you can query inside the container
+#podman exec -t containername /bin/wget --post-data '{"prompt":"hi"}' http://127.0.0.1:8080/completion -q -O -
+
+# test if you can query outside the container
+# curl --data-raw '{"prompt":"hi"}' http://127.0.0.1:8080/completion -v
 

@@ -1,0 +1,13 @@
+
+let g:llama_api_url='http://127.0.0.1:8080'
+"let g:llama_overrides={"n_predict": 256, "stop": [ "\n" ], "stream": v:true, "max_tokens": 5000,  }
+let g:llama_overrides={"n_predict": 256, "stop": [], "stream": v:true, "max_tokens": 500 }
+
+nnoremap <C-K> <Cmd>call llama#doLlamaGen()<CR>
+"inoremap <C-K> <Cmd>call llama#doLlamaGen()<CR>
+vnoremap <C-K> <Cmd>call llama#doLlamaGen()<CR>
+
+" calling external command so its compatible with both vim and neovim:
+" <Cmd>....<CR>
+
+

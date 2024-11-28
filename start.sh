@@ -9,7 +9,7 @@ llamafile=./models/llava-v1.5-7b-q4.llamafile
 podman build -t localhost/nothing .
 
 podman run --rm -it \
--p 8080:8080 \
+-p 127.0.0.1:8080:8080/tcp \
 -v "$llamafile":/llamafile:ro \
 -v ./models:/models:ro \
 localhost/nothing \
